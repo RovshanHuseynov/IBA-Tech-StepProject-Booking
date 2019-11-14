@@ -1,0 +1,54 @@
+package dao;
+
+import entity.Flight;
+import io.IOFlight;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.List;
+
+public class DAOFlight implements DAO<Flight> {
+    private final IOFlight ioFlight;
+    private List<Flight> flights;
+
+    public DAOFlight() throws IOException, ParseException {
+        this.flights = new IOFlight().read();
+        this.ioFlight = new IOFlight();
+    }
+
+    public Flight get(int id) {
+        for (Flight flight : flights) {
+            if (id == flight.getId()) {
+                return flight;
+            }
+        }
+        throw new IllegalArgumentException("No Flight at this id");
+    }
+
+    public List<Flight> getAll() {
+        return flights;
+    }
+
+    public void put(Flight flight) {
+        flights.add(flight);
+    }
+
+    public void delete(int id) {
+        flights.remove(flights.get(id));
+    }
+
+    public void set(Flight f) throws IOException {
+        for (Flight flight : flights) {
+            if (flight.getId() == f.getId()) {
+                int i = flights.indexOf(flight);
+                flights.set(i, f);
+                ioFlight.updateFile(flights);
+            }
+        }
+    }
+
+    public void update(List<Flight> flights) throws IOException {
+        ioFlight.updateFile(flights);
+    }
+}
+
