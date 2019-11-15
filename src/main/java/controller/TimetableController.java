@@ -2,6 +2,7 @@ package controller;
 
 import Console.SystemConsole;
 import entity.Flight;
+import service.ChosenFlight;
 import service.TimetableService;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class TimetableController {
         this.bookingController = new BookingController();
     }
 
-    public boolean search() throws IOException {
+    public boolean search() throws IOException, ParseException {
         systemConsole.printLn("Please enter source city name:");
         String fromCityName = systemConsole.readLn();
         systemConsole.printLn("Please enter destination city name:");
@@ -29,7 +30,7 @@ public class TimetableController {
         String date = systemConsole.readLn();
         systemConsole.printLn("Please enter number of tickets to buy:");
         String nTickets = systemConsole.readLn();
-        HashMap<Integer, Flight> chosen = timetableService.search(fromCityName.trim(), toCityName.trim(), date.trim(), nTickets.trim());
+        ChosenFlight chosen = timetableService.search(fromCityName.trim(), toCityName.trim(), date.trim(), nTickets.trim());
         if (chosen != null) {
             bookingController.add(chosen);
             return true;

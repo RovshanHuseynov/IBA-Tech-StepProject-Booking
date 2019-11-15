@@ -3,6 +3,7 @@ package controller;
 import Console.SystemConsole;
 import entity.Flight;
 import service.BookingService;
+import service.ChosenFlight;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -18,7 +19,7 @@ public class BookingController {
         this.systemConsole = new SystemConsole();
     }
 
-    public void remove() throws IOException {
+    public void remove() throws IOException, ParseException {
         systemConsole.printLn("Write an id of your booking to cancel:");
         String line;
         int id = -1;
@@ -42,11 +43,11 @@ public class BookingController {
         bookingService.show(name.trim(), surname.trim());
     }
 
-    public void add(HashMap<Integer, Flight> chosen) throws IOException {
+    public void add(ChosenFlight chosen) throws IOException, ParseException {
         bookingService.add(chosen);
     }
 
-    public void load() throws IOException {
+    public void load() throws IOException, ParseException {
         bookingService.load();
     }
 }

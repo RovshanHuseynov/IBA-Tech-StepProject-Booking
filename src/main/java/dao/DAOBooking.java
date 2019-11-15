@@ -35,25 +35,28 @@ public class DAOBooking implements DAO<Booking> {
         return bookings;
     }
 
-    public void put(Booking booking) throws IOException {
+    public void put(Booking booking) throws IOException, ParseException {
         bookings.add(booking);
         systemConsole.printLn("Your flight successfully booked!");
         ioBooking.updateFile(bookings);
+        this.bookings = ioBooking.read();
+
     }
 
-    public void delete(int id) throws IOException {
+    public void delete(int id) throws IOException, ParseException {
         for (int i = 0; i < bookings.size(); i++) {
             if (id == bookings.get(i).getFlight().getId()) {
                 int seats = bookings.get(i).getFlight().getEmptySeats() + bookings.get(i).getPassengers().size();
                 Flight flight = bookings.get(i).getFlight();
                 flight.setEmptySeats(seats);
-                bookings.remove(bookings.get(i));
                 daoFlight.set(flight);
+                bookings.remove(bookings.get(i));
+                ioBooking.updateFile(bookings);
+                this.bookings = ioBooking.read();
                 systemConsole.printLn("Your booking successfully cancelled!");
             } else {
                 systemConsole.printLn("No booking at this id!");
             }
         }
-        ioBooking.updateFile(bookings);
     }
 }

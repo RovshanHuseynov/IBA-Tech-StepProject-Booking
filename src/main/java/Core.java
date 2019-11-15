@@ -58,7 +58,7 @@ public class Core {
                     console.printLn("\n" + menu.show());
                     break;
                 case EXIT:
-                    console.printLn("We are always happy to host you. If you have a questions about how to use this application,\n do not hesitate to contact us");
+                    console.printLn("We are always happy to host you.\nIf you have further questions,\ndo not hesitate to contact us");
                     cont = false;
                     break;
                 default:

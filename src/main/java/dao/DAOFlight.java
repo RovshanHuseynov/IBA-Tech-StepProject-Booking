@@ -47,8 +47,8 @@ public class DAOFlight implements DAO<Flight> {
         }
     }
 
-    public void update(List<Flight> flights) throws IOException {
-        ioFlight.updateFile(flights);
+    public int nFlights(){
+        return flights.size();
     }
 }
 

@@ -9,7 +9,7 @@ public interface DAO<T> {
 
     List<T> getAll() throws IOException, ParseException;
 
-    void put(T t) throws IOException;
+    void put(T t) throws IOException, ParseException;
 
-    void delete(int id) throws IOException;
+    void delete(int id) throws IOException, ParseException;
 }

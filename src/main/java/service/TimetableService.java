@@ -42,7 +42,7 @@ public class TimetableService {
             Flight flight = daoFlight.get(id);
             List<Flight> all = new ArrayList<>();
             LocalDateTime currentTime = LocalDateTime.now();
-            if (currentTime.compareTo(flight.getDate()) >= 0) {
+            if (currentTime.compareTo(flight.getDate()) <= 0) {
                 all.add(flight);
                 printFlights(all);
             } else {
@@ -53,9 +53,16 @@ public class TimetableService {
         }
     }
 
-    public HashMap<Integer, Flight> search(String fromCityName, String toCityName, String date, String nTickets) {
-        HashMap<Integer, Flight> book = new HashMap<>(0);
+    public ChosenFlight search(String fromCityName, String toCityName, String date, String nTickets) {
         try {
+            LocalDateTime currentDate = LocalDateTime.now();
+            if (currentDate.getYear() >= Integer.parseInt(date.split("\\.")[0])
+                    && currentDate.getMonthValue() >= Integer.parseInt(date.split("\\.")[1])
+                    && currentDate.getDayOfMonth() >= Integer.parseInt(date.split("\\.")[2])) {
+                systemConsole.printLn("This flight is already outdated");
+                return null;
+            }
+
             List<Flight> all = daoFlight.getAll().stream().filter(flight -> {
                 String from = flight.getSource().getName();
                 String to = flight.getDestination().getName();
@@ -81,11 +88,10 @@ public class TimetableService {
                             flight.setEmptySeats(seats);
                             daoFlight.set(flight);
                             int n = checkInputIsInteger(nTickets);
-                            book.put(n, flight);
-                            systemConsole.printLn(book.toString());
-                            return book;
+                            return new ChosenFlight(n,flight);
                         }
                     }
+                    systemConsole.printLn("This flight ID was not in the list");
                 }
             }
         } catch (Exception e) {
@@ -96,8 +102,7 @@ public class TimetableService {
 
     public void printFlights(List<Flight> all) {
         if (all.size() == 0) systemConsole.printLn("No Flights Found");
-        else if (all.size() == 1) systemConsole.printLn(all.size() + " available flight found:");
-        else systemConsole.printLn(all.size() + " available flights found:");
+        else if (all.size() != 0) systemConsole.printLn(all.size() + " available flight found:");
         for (Flight flight : all) {
             systemConsole.printLn("id:" + flight.getId()
                     + ", source:" + flight.getSource().getName()
