@@ -1,0 +1,20 @@
+1 : Norway
+2 : Switzerland
+3 : Australia
+4 : Ireland
+5 : Germany
+6 : Iceland
+7 : China
+8 : Sweden
+9 : Denmark
+10 : Canada
+11 : United States
+12 : United Kingdom
+13 : Finland
+14 : Italy
+15 : Belgium
+16 : Japan
+17 : Austria
+18 : France
+19 : Estonia
+20 : Cyprus

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,10 +55,19 @@ public class TimetableService {
     public ChosenFlight search(String fromCityName, String toCityName, String date, String nTickets) {
         try {
             LocalDateTime currentDate = LocalDateTime.now();
-            if (currentDate.getYear() >= Integer.parseInt(date.split("\\.")[0])
-                    && currentDate.getMonthValue() >= Integer.parseInt(date.split("\\.")[1])
-                    && currentDate.getDayOfMonth() >= Integer.parseInt(date.split("\\.")[2])) {
-                systemConsole.printLn("This flight is already outdated");
+            boolean isYearOld = (currentDate.getYear() > Integer.parseInt(date.split("\\.")[0]));
+
+            boolean isMonthOld = (currentDate.getYear() == Integer.parseInt(date.split("\\.")[0]) &&
+                    currentDate.getMonthValue() > Integer.parseInt(date.split("\\.")[1]));
+
+            boolean isDayOld = (currentDate.getYear() == Integer.parseInt(date.split("\\.")[0]) &&
+                    currentDate.getMonthValue() == Integer.parseInt(date.split("\\.")[1]) &&
+                    currentDate.getDayOfMonth() > Integer.parseInt(date.split("\\.")[2]));
+
+            boolean isDateOld = date.split("\\.").length == 3 && (isYearOld || isMonthOld || isDayOld);
+
+            if (isDateOld) {
+                systemConsole.printLn("Your input date is already outdated");
                 return null;
             }
 
@@ -88,21 +96,22 @@ public class TimetableService {
                             flight.setEmptySeats(seats);
                             daoFlight.set(flight);
                             int n = checkInputIsInteger(nTickets);
-                            return new ChosenFlight(n,flight);
+                            return new ChosenFlight(n, flight);
                         }
                     }
                     systemConsole.printLn("This flight ID was not in the list");
                 }
             }
         } catch (Exception e) {
-            systemConsole.printLn("No flight available");
+            systemConsole.printLn("Wrong input");
         }
         return null;
     }
 
     public void printFlights(List<Flight> all) {
         if (all.size() == 0) systemConsole.printLn("No Flights Found");
-        else if (all.size() != 0) systemConsole.printLn(all.size() + " available flight found:");
+        else if (all.size() == 1) systemConsole.printLn(all.size() + " available flight found:");
+        else systemConsole.printLn(all.size() + " available flights found:");
         for (Flight flight : all) {
             systemConsole.printLn("id:" + flight.getId()
                     + ", source:" + flight.getSource().getName()

@@ -1,14 +1,12 @@
 package controller;
 
 import Console.SystemConsole;
-import entity.Flight;
 import service.ChosenFlight;
 import service.TimetableService;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 
 public class TimetableController {
     private final TimetableService timetableService;
@@ -21,7 +19,7 @@ public class TimetableController {
         this.bookingController = new BookingController();
     }
 
-    public boolean search() throws IOException, ParseException {
+    public void search() throws IOException, ParseException {
         systemConsole.printLn("Please enter source city name:");
         String fromCityName = systemConsole.readLn();
         systemConsole.printLn("Please enter destination city name:");
@@ -33,9 +31,7 @@ public class TimetableController {
         ChosenFlight chosen = timetableService.search(fromCityName.trim(), toCityName.trim(), date.trim(), nTickets.trim());
         if (chosen != null) {
             bookingController.add(chosen);
-            return true;
         }
-        return false;
     }
 
     public void show() {

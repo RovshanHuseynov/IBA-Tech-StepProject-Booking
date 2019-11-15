@@ -31,31 +31,25 @@ public class Core {
             database.createInitialData();
         }
         boolean cont = true;
-        console.printLn(menu.show());
         while (cont) {
+            console.printLn("\n" + menu.show());
             String line = console.readLn();
             Command user_input = parser.parse(line);
             switch (user_input) {
                 case TIMETABLE_SHOW:
                     timetableController.show();
-                    console.printLn("\n" + menu.show());
                     break;
                 case TIMETABLE_LINE_SHOW:
                     timetableController.showLine();
-                    console.printLn("\n" + menu.show());
                     break;
                 case FLIGHT_SEARCH:
-                    if(!timetableController.search()){
-                        console.printLn("\n" + menu.show());
-                    }
+                    timetableController.search();
                     break;
                 case BOOKING_REMOVE:
                     bookingController.remove();
-                    console.printLn("\n" + menu.show());
                     break;
                 case MY_BOOKINGS_SHOW:
                     bookingController.show();
-                    console.printLn("\n" + menu.show());
                     break;
                 case EXIT:
                     console.printLn("We are always happy to host you.\nIf you have further questions,\ndo not hesitate to contact us");
@@ -67,5 +61,4 @@ public class Core {
             }
         }
     }
-
 }

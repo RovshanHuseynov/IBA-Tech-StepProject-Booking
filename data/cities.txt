@@ -1,0 +1,20 @@
+1 : Oslo : Norway
+2 : Bern : Switzerland
+3 : Canberra : Australia
+4 : Dublin : Ireland
+5 : Berlin : Germany
+6 : Reykjavik : Iceland
+7 : Beijing : China
+8 : Stockholm : Sweden
+9 : Copenhagen : Denmark
+10 : Ottawa : Canada
+11 : Washington : United States
+12 : London : United Kingdom
+13 : Helsinki : Finland
+14 : Roma : Italy
+15 : Brussels : Belgium
+16 : Tokyo : Japan
+17 : Vienna : Austria
+18 : Paris : France
+19 : Tallinn : Estonia
+20 : Nicosia : Cyprus
