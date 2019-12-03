@@ -1,11 +1,11 @@
+package database_files;
+
 import entity.Flight;
 import io.IOFlight;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class Flights {
@@ -45,13 +45,13 @@ public class Flights {
 
     public void create() {
         int k = 0;
-        for (int n = 0; n < 15; n++) {
+        for (int n = 0; n < 1; n++) {
             for (Flight flight : data) {
                 try {
                     flight.setDate(flight.getDate().plusHours((int) (Math.random() * 100)));
                     flight.setId(k);
                     k += 1;
-                    ioFlight.write(flight);
+                    //ioFlight.write(flight);
                     flight.setDate(flight.getDate().plusDays((int) (Math.random() * 50)));
                     flight.setId(k);
                     k += 1;
@@ -59,7 +59,7 @@ public class Flights {
                     flight.setDate(flight.getDate().plusMonths((int) (Math.random() * 5)));
                     flight.setId(k);
                     k += 1;
-                    ioFlight.write(flight);
+                    //ioFlight.write(flight);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

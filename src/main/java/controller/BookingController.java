@@ -1,6 +1,6 @@
 package controller;
 
-import Console.SystemConsole;
+import console.SystemConsole;
 import entity.Flight;
 import service.BookingService;
 import service.ChosenFlight;

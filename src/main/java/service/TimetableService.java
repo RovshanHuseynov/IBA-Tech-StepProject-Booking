@@ -1,6 +1,6 @@
 package service;
 
-import Console.SystemConsole;
+import console.SystemConsole;
 import dao.DAOFlight;
 import entity.Flight;
 
@@ -109,7 +109,7 @@ public class TimetableService {
     }
 
     public void printFlights(List<Flight> all) {
-        if (all.size() == 0) systemConsole.printLn("No Flights Found");
+        if (all.size() == 0) systemConsole.printLn("No database_files.Flights Found");
         else if (all.size() == 1) systemConsole.printLn(all.size() + " available flight found:");
         else systemConsole.printLn(all.size() + " available flights found:");
         for (Flight flight : all) {

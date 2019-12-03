@@ -1,14 +1,16 @@
-import Console.SystemConsole;
-
+import console.Console;
+import console.SystemConsole;
+import database_files.Database;
 
 import java.io.IOException;
 import java.text.ParseException;
 
-public class app {
+public class App {
 
     public static void main(String[] args) throws IOException, ParseException {
-        SystemConsole console = new SystemConsole();
+        Console console = new SystemConsole();
         Database database = new Database();
         Core app = new Core(console, database);
         app.run();
-    }}
+    }
+}

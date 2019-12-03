@@ -1,6 +1,7 @@
-import Console.Console;
+import console.Console;
 import controller.BookingController;
 import controller.TimetableController;
+import database_files.Database;
 import io.Command;
 import io.Parser;
 
@@ -52,7 +53,8 @@ public class Core {
                     bookingController.show();
                     break;
                 case EXIT:
-                    console.printLn("We are always happy to host you.\nIf you have further questions,\ndo not hesitate to contact us");
+                    console.printLn("We are always happy to host you. If you have further questions,\n" +
+                            "do not hesitate to contact us -> info@onlinebookingtickets.com");
                     cont = false;
                     break;
                 default:

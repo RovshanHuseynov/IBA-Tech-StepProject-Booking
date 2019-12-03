@@ -1,6 +1,7 @@
 package dao;
 
-import Console.SystemConsole;
+import console.SystemConsole;
+import console.Console;
 import entity.Booking;
 import entity.Flight;
 import io.IOBooking;
@@ -12,14 +13,14 @@ import java.util.List;
 public class DAOBooking implements DAO<Booking> {
     private final IOBooking ioBooking;
     private final DAOFlight daoFlight;
-    private final SystemConsole systemConsole;
+    private final Console console;
     private List<Booking> bookings;
 
     public DAOBooking() throws IOException, ParseException {
         this.bookings = new IOBooking().read();
         this.ioBooking = new IOBooking();
         this.daoFlight = new DAOFlight();
-        this.systemConsole = new SystemConsole();
+        this.console = new SystemConsole();
     }
 
     public Booking get(int id) {
@@ -37,7 +38,7 @@ public class DAOBooking implements DAO<Booking> {
 
     public void put(Booking booking) throws IOException, ParseException {
         bookings.add(booking);
-        systemConsole.printLn("Your flight successfully booked!");
+        console.printLn("Your flight successfully booked!");
         ioBooking.updateFile(bookings);
         this.bookings = ioBooking.read();
 
@@ -53,9 +54,9 @@ public class DAOBooking implements DAO<Booking> {
                 bookings.remove(bookings.get(i));
                 ioBooking.updateFile(bookings);
                 this.bookings = ioBooking.read();
-                systemConsole.printLn("Your booking successfully cancelled!");
+                console.printLn("Your booking successfully cancelled!");
             } else {
-                systemConsole.printLn("No booking at this id!");
+                console.printLn("No booking at this id!");
             }
         }
     }

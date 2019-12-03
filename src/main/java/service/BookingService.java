@@ -1,6 +1,7 @@
 package service;
 
-import Console.SystemConsole;
+import console.Console;
+import console.SystemConsole;
 import dao.DAOBooking;
 import dao.DAOFlight;
 import entity.Booking;
@@ -15,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingService {
-    private final SystemConsole systemConsole;
+    private final Console console;
     private final DAOBooking daoBooking;
     private final DAOFlight daoFlight;
 
     public BookingService() throws IOException, ParseException {
-        this.systemConsole = new SystemConsole();
+        this.console = new SystemConsole();
         this.daoBooking = new DAOBooking();
         this.daoFlight = new DAOFlight();
     }
@@ -29,12 +30,12 @@ public class BookingService {
         List<Passenger> passengers = new ArrayList<>(1);
         int numOfTickets = booking.getNumOfTickets();
         Flight flight = booking.getFlight();
-        systemConsole.printLn("Enter passengers name and surname with enter.");
+        console.printLn("Enter passengers name and surname with enter.");
         for (int i = 0; i < numOfTickets; i++) {
-            systemConsole.printLn((i + 1) + ". Passenger name");
-            String name = systemConsole.readLn().trim();
-            systemConsole.printLn((i + 1) + ". Passenger surname");
-            String surname = systemConsole.readLn().trim();
+            console.printLn((i + 1) + ". Passenger name");
+            String name = console.readLn().trim();
+            console.printLn((i + 1) + ". Passenger surname");
+            String surname = console.readLn().trim();
             passengers.add(new Passenger(name, surname));
         }
         LocalDateTime now = LocalDateTime.now();
@@ -59,12 +60,12 @@ public class BookingService {
             }
         }
         if (!f) {
-            systemConsole.printLn("There is no booking at your name!");
+            console.printLn("There is no booking at your name!");
         }
     }
 
     public void printBooking(Booking booking) {
-        systemConsole.printLn("Buyer: " + booking.getBuyer().getName().toUpperCase()
+        console.printLn("Buyer: " + booking.getBuyer().getName().toUpperCase()
                 + " " + booking.getBuyer().getSurname().toUpperCase()
                 + ", flight from: " + booking.getFlight().getSource().getName().toUpperCase()
                 + ", to : " + booking.getFlight().getDestination().getName().toUpperCase()
