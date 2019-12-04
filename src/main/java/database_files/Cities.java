@@ -28,7 +28,7 @@ public class Cities implements Iterable<City> {
     City city16 = new City(16, "Tokyo", countries.country16);
     City city17 = new City(17, "Vienna", countries.country17);
     City city18 = new City(18, "Paris", countries.country18);
-    City city19 = new City(19, "Tallinn", countries.country19);
+    City city19 = new City(19, "Tallin", countries.country19);
     City city20 = new City(20, "Nicosia", countries.country20);
 
     private final List<City> data = Arrays.asList(city1, city2, city3, city4, city5,

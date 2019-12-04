@@ -60,6 +60,8 @@ public class BookingService {
         }
         if (!f) {
             console.printLn("There is no booking at your name!");
+        } else {
+            console.printLn("\n");
         }
     }
 
@@ -70,7 +72,7 @@ public class BookingService {
                 + ", to : " + booking.getFlight().getDestination().getName().toUpperCase()
                 + ", flight date : " + booking.getFlight().getDate()
                 + ", " + booking.getPassengers().toString().toUpperCase()
-                + ", booking date : " + booking.getDate() + "\n");
+                + ", booking date : " + booking.getDate());
 
 
     }

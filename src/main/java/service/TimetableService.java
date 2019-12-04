@@ -27,8 +27,7 @@ public class TimetableService {
         try {
             List<Flight> all = daoFlight.getAll().stream().filter(flight -> {
                 LocalDateTime checkDateTime = flight.getDate();
-                boolean isDateTrue = (checkDateTime.compareTo(fromDateTime) >= 0) && (checkDateTime.compareTo(toDateTime) <= 0);
-                return isDateTrue;
+                return (checkDateTime.compareTo(fromDateTime) >= 0) && (checkDateTime.compareTo(toDateTime) <= 0);
             }).collect(Collectors.toList());
             printFlights(all);
         } catch (Exception e) {
@@ -54,53 +53,48 @@ public class TimetableService {
 
     public ChosenFlight search(String fromCityName, String toCityName, String date, String nTickets) {
         try {
-            LocalDateTime currentDate = LocalDateTime.now();
-            boolean isYearOld = (currentDate.getYear() > Integer.parseInt(date.split("\\.")[0]));
-
-            boolean isMonthOld = (currentDate.getYear() == Integer.parseInt(date.split("\\.")[0]) &&
-                    currentDate.getMonthValue() > Integer.parseInt(date.split("\\.")[1]));
-
-            boolean isDayOld = (currentDate.getYear() == Integer.parseInt(date.split("\\.")[0]) &&
-                    currentDate.getMonthValue() == Integer.parseInt(date.split("\\.")[1]) &&
-                    currentDate.getDayOfMonth() > Integer.parseInt(date.split("\\.")[2]));
-
-            boolean isDateOld = date.split("\\.").length == 3 && (isYearOld || isMonthOld || isDayOld);
-
-            if (isDateOld) {
-                console.printLn("Your input date is already outdated");
-                return null;
-            }
+            String[] splitter = date.split("\\.");
+            int year = Integer.parseInt(splitter[0]);
+            int month = Integer.parseInt(splitter[1]);
+            int day = Integer.parseInt(splitter[2]);
 
             List<Flight> all = daoFlight.getAll().stream().filter(flight -> {
                 String from = flight.getSource().getName();
                 String to = flight.getDestination().getName();
-                int year = Integer.parseInt(date.split("\\.")[0]);
-                int month = Integer.parseInt(date.split("\\.")[1]);
-                int day = Integer.parseInt(date.split("\\.")[2]);
-                boolean equalDate = (year == flight.getDate().getYear()) && (month == flight.getDate().getMonthValue()) && (day == flight.getDate().getDayOfMonth());
+
+                boolean equalDate = (year == flight.getDate().getYear())
+                        && (month == flight.getDate().getMonthValue())
+                        && (day == flight.getDate().getDayOfMonth());
                 boolean enoughEmptySeats = Integer.parseInt(nTickets) <= flight.getEmptySeats();
                 return enoughEmptySeats
+                        && equalDate
                         && from.equalsIgnoreCase(fromCityName)
-                        && to.equalsIgnoreCase(toCityName)
-                        && equalDate;
+                        && to.equalsIgnoreCase(toCityName);
             }).collect(Collectors.toList());
+
             printFlights(all);
+
             if (all.size() > 0) {
                 console.printLn("Please enter flight id to book a flight");
                 String in = console.readLn();
-                int flightId = checkInputIsInteger(in);
-                if (flightId != -1) {
-                    for (Flight flight : all) {
-                        if (flight.getId() == flightId) {
-                            int seats = flight.getEmptySeats() - Integer.parseInt(nTickets);
-                            flight.setEmptySeats(seats);
-                            daoFlight.set(flight);
-                            int n = checkInputIsInteger(nTickets);
-                            return new ChosenFlight(n, flight);
-                        }
-                    }
+                in = checkInteger(in);
+                int flightId = Integer.parseInt(in);
+                Flight flight = daoFlight.get(flightId);
+                if (flight.getEmptySeats() >= Integer.parseInt(nTickets)
+                        && flight.getDate().getYear() == year
+                        && flight.getDate().getMonthValue() == month
+                        && flight.getDate().getDayOfMonth() == day
+                        && flight.getSource().getName().toLowerCase().equals(fromCityName.toLowerCase())
+                        && flight.getDestination().getName().toLowerCase().equals(toCityName.toLowerCase())) {
+                    int seats = flight.getEmptySeats() - Integer.parseInt(nTickets);
+                    flight.setEmptySeats(seats);
+                    daoFlight.set(flight);
+                    return new ChosenFlight(Integer.parseInt(nTickets), flight);
+                } else {
                     console.printLn("This flight ID was not in the list");
                 }
+            } else {
+                console.printLn("No flights found");
             }
         } catch (Exception e) {
             console.printLn("Wrong input");
@@ -109,7 +103,7 @@ public class TimetableService {
     }
 
     public void printFlights(List<Flight> all) {
-        if (all.size() == 0) console.printLn("No database_files.Flights Found");
+        if (all.size() == 0) console.printLn("No Flights Found");
         else if (all.size() == 1) console.printLn(all.size() + " available flight found:");
         else console.printLn(all.size() + " available flights found:");
         for (Flight flight : all) {
@@ -121,22 +115,35 @@ public class TimetableService {
         }
     }
 
-    public int checkInputIsInteger(String input) {
-        int id = -1;
-        while (true) {
-            try {
-                id = Integer.parseInt(input);
-                break;
-            } catch (Exception e) {
-                console.printLn("Please, enter an right integer : ");
-                input = console.readLn();
-            }
-        }
-        return id;
-    }
-
     public void load() {
         daoFlight.getAll();
+    }
+
+    public String checkInteger(String input) {
+        boolean isValid;
+        while (true) {
+            isValid = true;
+            input = input.trim();
+            int len = input.length();
+            for (int i = 0; i < len; i++) {
+                if (!isInteger(input.charAt(i))) {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            if (!isValid) {
+                console.printLn("Please enter integer correctly");
+                input = console.readLn();
+            } else {
+                break;
+            }
+        }
+        return input;
+    }
+
+    public boolean isInteger(char c) {
+        return (c >= '0' && c <= '9');
     }
 }
 

@@ -45,6 +45,7 @@ public class DAOBooking implements DAO<Booking> {
     }
 
     public void delete(int id) throws IOException, ParseException {
+        boolean isFound = false;
         for (int i = 0; i < bookings.size(); i++) {
             if (id == bookings.get(i).getFlight().getId()) {
                 int seats = bookings.get(i).getFlight().getEmptySeats() + bookings.get(i).getPassengers().size();
@@ -55,9 +56,11 @@ public class DAOBooking implements DAO<Booking> {
                 ioBooking.updateFile(bookings);
                 this.bookings = ioBooking.read();
                 console.printLn("Your booking successfully cancelled!");
-            } else {
-                console.printLn("No booking at this id!");
+                if (!isFound) isFound = true;
             }
+
+            if (!isFound)
+                console.printLn("No booking at this id!");
         }
     }
 }
