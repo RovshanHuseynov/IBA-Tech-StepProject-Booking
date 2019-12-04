@@ -1,6 +1,6 @@
 package service;
 
-import console.SystemConsole;
+import console.Console;
 import dao.DAOFlight;
 import entity.Flight;
 
@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TimetableService {
-    private final SystemConsole systemConsole;
+    private final Console console;
     private final DAOFlight daoFlight;
     private Menu menu;
 
-    public TimetableService() throws IOException, ParseException {
-        this.systemConsole = new SystemConsole();
+    public TimetableService(Console console) throws IOException, ParseException {
+        this.console = console;
         this.daoFlight = new DAOFlight();
         this.menu = new Menu();
     }
@@ -32,7 +32,7 @@ public class TimetableService {
             }).collect(Collectors.toList());
             printFlights(all);
         } catch (Exception e) {
-            systemConsole.printLn("Input is not correct");
+            console.printLn("Input is not correct");
         }
     }
 
@@ -45,7 +45,7 @@ public class TimetableService {
                 all.add(flight);
                 printFlights(all);
             } else {
-                systemConsole.printLn("This flight is already outdated");
+                console.printLn("This flight is already outdated");
             }
         } catch (Exception e) {
             System.out.println("Input is not correct");
@@ -67,7 +67,7 @@ public class TimetableService {
             boolean isDateOld = date.split("\\.").length == 3 && (isYearOld || isMonthOld || isDayOld);
 
             if (isDateOld) {
-                systemConsole.printLn("Your input date is already outdated");
+                console.printLn("Your input date is already outdated");
                 return null;
             }
 
@@ -86,8 +86,8 @@ public class TimetableService {
             }).collect(Collectors.toList());
             printFlights(all);
             if (all.size() > 0) {
-                systemConsole.printLn("Please enter flight id to book a flight");
-                String in = systemConsole.readLn();
+                console.printLn("Please enter flight id to book a flight");
+                String in = console.readLn();
                 int flightId = checkInputIsInteger(in);
                 if (flightId != -1) {
                     for (Flight flight : all) {
@@ -99,21 +99,21 @@ public class TimetableService {
                             return new ChosenFlight(n, flight);
                         }
                     }
-                    systemConsole.printLn("This flight ID was not in the list");
+                    console.printLn("This flight ID was not in the list");
                 }
             }
         } catch (Exception e) {
-            systemConsole.printLn("Wrong input");
+            console.printLn("Wrong input");
         }
         return null;
     }
 
     public void printFlights(List<Flight> all) {
-        if (all.size() == 0) systemConsole.printLn("No database_files.Flights Found");
-        else if (all.size() == 1) systemConsole.printLn(all.size() + " available flight found:");
-        else systemConsole.printLn(all.size() + " available flights found:");
+        if (all.size() == 0) console.printLn("No database_files.Flights Found");
+        else if (all.size() == 1) console.printLn(all.size() + " available flight found:");
+        else console.printLn(all.size() + " available flights found:");
         for (Flight flight : all) {
-            systemConsole.printLn("id:" + flight.getId()
+            console.printLn("id:" + flight.getId()
                     + ", source:" + flight.getSource().getName()
                     + ", destination:" + flight.getDestination().getName()
                     + ", emptySeats:" + flight.getEmptySeats()
@@ -128,8 +128,8 @@ public class TimetableService {
                 id = Integer.parseInt(input);
                 break;
             } catch (Exception e) {
-                systemConsole.printLn("Please, enter an right integer : ");
-                input = systemConsole.readLn();
+                console.printLn("Please, enter an right integer : ");
+                input = console.readLn();
             }
         }
         return id;

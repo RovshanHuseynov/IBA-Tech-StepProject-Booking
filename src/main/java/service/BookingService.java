@@ -1,7 +1,6 @@
 package service;
 
 import console.Console;
-import console.SystemConsole;
 import dao.DAOBooking;
 import dao.DAOFlight;
 import entity.Booking;
@@ -20,8 +19,8 @@ public class BookingService {
     private final DAOBooking daoBooking;
     private final DAOFlight daoFlight;
 
-    public BookingService() throws IOException, ParseException {
-        this.console = new SystemConsole();
+    public BookingService(Console console) throws IOException, ParseException {
+        this.console = console;
         this.daoBooking = new DAOBooking();
         this.daoFlight = new DAOFlight();
     }
@@ -79,5 +78,4 @@ public class BookingService {
     public void load() throws IOException, ParseException {
         daoBooking.getAll();
     }
-
 }

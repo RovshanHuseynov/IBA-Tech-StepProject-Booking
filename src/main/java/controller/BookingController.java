@@ -1,45 +1,43 @@
 package controller;
 
-import console.SystemConsole;
-import entity.Flight;
+import console.Console;
 import service.BookingService;
 import service.ChosenFlight;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.HashMap;
 
 public class BookingController {
     private final BookingService bookingService;
-    private final SystemConsole systemConsole;
+    private final Console console;
 
 
-    public BookingController() throws IOException, ParseException {
-        this.bookingService = new BookingService();
-        this.systemConsole = new SystemConsole();
+    public BookingController(Console console) throws IOException, ParseException {
+        this.console = console;
+        this.bookingService = new BookingService(console);
     }
 
     public void remove() throws IOException, ParseException {
-        systemConsole.printLn("Write an id of your booking to cancel:");
+        console.printLn("Write an id of your booking to cancel:");
         String line;
         int id = -1;
         while (true) {
             try {
-                line = systemConsole.readLn();
+                line = console.readLn();
                 id = Integer.parseInt(line);
                 break;
             } catch (Exception e) {
-                systemConsole.printLn("Please, enter an valid id : ");
+                console.printLn("Please, enter an valid id : ");
             }
         }
         bookingService.delete(id);
     }
 
     public void show() {
-        systemConsole.printLn("Enter your name");
-        String name = systemConsole.readLn();
-        systemConsole.printLn("Enter your surname");
-        String surname = systemConsole.readLn();
+        console.printLn("Enter your name");
+        String name = console.readLn();
+        console.printLn("Enter your surname");
+        String surname = console.readLn();
         bookingService.show(name.trim(), surname.trim());
     }
 

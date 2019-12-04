@@ -21,8 +21,8 @@ public class Core {
         this.database = database;
         this.menu = new Menu();
         this.parser = new Parser();
-        this.bookingController = new BookingController();
-        this.timetableController = new TimetableController();
+        this.bookingController = new BookingController(console);
+        this.timetableController = new TimetableController(console);
     }
 
     public void run() throws IOException, ParseException {

@@ -1,7 +1,6 @@
 package controller;
 
 import console.Console;
-import console.SystemConsole;
 import service.ChosenFlight;
 import service.TimetableService;
 
@@ -14,10 +13,10 @@ public class TimetableController {
     private final Console console;
     private final BookingController bookingController;
 
-    public TimetableController() throws IOException, ParseException {
-        this.timetableService = new TimetableService();
-        this.console = new SystemConsole();
-        this.bookingController = new BookingController();
+    public TimetableController(Console console) throws IOException, ParseException {
+        this.console = console;
+        this.timetableService = new TimetableService(console);
+        this.bookingController = new BookingController(console);
     }
 
     public void search() throws IOException, ParseException {
