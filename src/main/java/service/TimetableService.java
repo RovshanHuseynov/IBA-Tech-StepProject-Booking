@@ -15,12 +15,10 @@ import java.util.stream.Collectors;
 public class TimetableService {
     private final Console console;
     private final DAOFlight daoFlight;
-    private Menu menu;
 
     public TimetableService(Console console) throws IOException, ParseException {
         this.console = console;
         this.daoFlight = new DAOFlight();
-        this.menu = new Menu();
     }
 
     public void show(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
@@ -84,7 +82,7 @@ public class TimetableService {
                         && flight.getDestination().getName().toLowerCase().equals(toCityName.toLowerCase())) {
                     int seats = flight.getEmptySeats() - Integer.parseInt(nTickets);
                     flight.setEmptySeats(seats);
-                    daoFlight.set(flight);
+                    daoFlight.set(flightId);
                     return new ChosenFlight(Integer.parseInt(nTickets), flight);
                 } else {
                     console.printLn("This flight ID was not in the list");

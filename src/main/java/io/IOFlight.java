@@ -68,7 +68,6 @@ public class IOFlight {
         for (Flight item : flights) {
             write(item);
         }
-
     }
 
     public void deleteFile(File file) {

@@ -28,8 +28,8 @@ public class DAOFlightTest {
         this.city1 = new City(1, "Oslo", country1);
         this.city2 = new City(2, "Bern", country2);
         this.city3 = new City(3, "Canberra", country3);
-        this.flight1 = new Flight(1, city1, city2, 50, 50, LocalDateTime.parse("2019-11-11T00:00"));
-        this.flight2 = new Flight(63, city2, city3, 50, 50, LocalDateTime.parse("2020-11-15T00:00"));
+        this.flight1 = new Flight(1, city1, city2, 50, 50, LocalDateTime.now());
+        this.flight2 = new Flight(64, city2, city3, 50, 50, LocalDateTime.now());
         this.dof = new DAOFlight();
     }
 
@@ -54,11 +54,11 @@ public class DAOFlightTest {
 
     @Test
     public void get2() {
-        assertEquals(63, dof.get(63).getId());
-        assertEquals(city2, dof.get(63).getSource());
-        assertEquals(city3, dof.get(63).getDestination());
-        assertEquals(50, dof.get(63).getSeats());
-        assertEquals(50, dof.get(63).getEmptySeats());
+        assertEquals(64, dof.get(64).getId());
+        assertEquals(city2, dof.get(64).getSource());
+        assertEquals(city3, dof.get(64).getDestination());
+        assertEquals(50, dof.get(64).getSeats());
+        assertEquals(50, dof.get(64).getEmptySeats());
     }
 
     @Test

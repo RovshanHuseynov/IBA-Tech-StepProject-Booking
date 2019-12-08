@@ -51,7 +51,7 @@ public class DAOBooking implements DAO<Booking> {
                 int seats = bookings.get(i).getFlight().getEmptySeats() + bookings.get(i).getPassengers().size();
                 Flight flight = bookings.get(i).getFlight();
                 flight.setEmptySeats(seats);
-                daoFlight.set(flight);
+                daoFlight.set(flight.getId());
                 bookings.remove(bookings.get(i));
                 ioBooking.updateFile(bookings);
                 this.bookings = ioBooking.read();

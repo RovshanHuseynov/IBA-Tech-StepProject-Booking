@@ -16,9 +16,9 @@ public class DAOFlight implements DAO<Flight> {
         this.ioFlight = new IOFlight();
     }
 
-    public Flight get(int id) {
+    public Flight get(int flightID) {
         for (Flight flight : flights) {
-            if (id == flight.getId()) {
+            if (flightID == flight.getId()) {
                 return flight;
             }
         }
@@ -37,18 +37,15 @@ public class DAOFlight implements DAO<Flight> {
         flights.remove(flights.get(id));
     }
 
-    public void set(Flight f) throws IOException {
-        for (Flight flight : flights) {
-            if (flight.getId() == f.getId()) {
-                int i = flights.indexOf(flight);
-                flights.set(i, f);
-                ioFlight.updateFile(flights);
-            }
-        }
+    public void set(int flightID) throws IOException {
+        //System.out.println("bu? " + flights.get(flightID-1));
+        Flight flight = flights.get(flightID-1);
+        int i = flights.indexOf(flight);
+        flights.set(i, flight);
+        ioFlight.updateFile(flights);
     }
 
     public int nFlights(){
         return flights.size();
     }
 }
-

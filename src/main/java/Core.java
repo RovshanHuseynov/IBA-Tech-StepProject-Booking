@@ -4,7 +4,6 @@ import controller.TimetableController;
 import database_files.Database;
 import io.Command;
 import io.Parser;
-
 import java.io.IOException;
 import java.text.ParseException;
 
