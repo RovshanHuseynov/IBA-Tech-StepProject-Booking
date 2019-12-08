@@ -5,7 +5,9 @@ import io.IOFlight;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class Flights {
@@ -44,27 +46,18 @@ public class Flights {
         this.db = new Database();
     }
 
-    public void create() {
+    public void create() throws IOException {
+        List<Flight> flights = new ArrayList<>();
         int k = 1;
         for (int n = 0; n < 15; n++) {
-            for (Flight flight : data) {
-                try {
-                    flight.setDate(flight.getDate().plusHours((int) (Math.random() * 100)));
-                    flight.setId(k);
-                    k += 1;
-                    ioFlight.write(flight);
-                    flight.setDate(flight.getDate().plusDays((int) (Math.random() * 50)));
-                    flight.setId(k);
-                    k += 1;
-                    ioFlight.write(flight);
-                    flight.setDate(flight.getDate().plusMonths((int) (Math.random() * 5)));
-                    flight.setId(k);
-                    k += 1;
-                    ioFlight.write(flight);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            for (Flight f : data) {
+                flights.add(new Flight(k++, f.getSource(), f.getDestination(), f.getSeats(), f.getEmptySeats(), f.getDate().plusHours((int) (Math.random() * 100))));
+                flights.add(new Flight(k++, f.getSource(), f.getDestination(), f.getSeats(), f.getEmptySeats(), f.getDate().plusDays((int) (Math.random() * 50))));
+                flights.add(new Flight(k++, f.getSource(), f.getDestination(), f.getSeats(), f.getEmptySeats(), f.getDate().plusMonths((int) (Math.random() * 10))));
+                flights.add(new Flight(k++, f.getSource(), f.getDestination(), f.getSeats(), f.getEmptySeats(), f.getDate().plusYears((int) (Math.random() * 5))));
             }
         }
+
+        ioFlight.write(flights);
     }
 }

@@ -87,8 +87,6 @@ public class TimetableService {
                 } else {
                     console.printLn("This flight ID was not in the list");
                 }
-            } else {
-                console.printLn("No flights found");
             }
         } catch (Exception e) {
             console.printLn("Wrong input");

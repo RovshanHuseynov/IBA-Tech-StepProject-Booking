@@ -29,7 +29,7 @@ public class DAOFlightTest {
         this.city2 = new City(2, "Bern", country2);
         this.city3 = new City(3, "Canberra", country3);
         this.flight1 = new Flight(1, city1, city2, 50, 50, LocalDateTime.now());
-        this.flight2 = new Flight(64, city2, city3, 50, 50, LocalDateTime.now());
+        this.flight2 = new Flight(85, city2, city3, 50, 50, LocalDateTime.now());
         this.dof = new DAOFlight();
     }
 
@@ -40,7 +40,7 @@ public class DAOFlightTest {
 
     @Test
     public void getAll1() {
-        assertEquals(900, dof.getAll().size());
+        assertEquals(1200, dof.getAll().size());
     }
 
     @Test
@@ -54,36 +54,36 @@ public class DAOFlightTest {
 
     @Test
     public void get2() {
-        assertEquals(64, dof.get(64).getId());
-        assertEquals(city2, dof.get(64).getSource());
-        assertEquals(city3, dof.get(64).getDestination());
-        assertEquals(50, dof.get(64).getSeats());
-        assertEquals(50, dof.get(64).getEmptySeats());
+        assertEquals(85, dof.get(85).getId());
+        assertEquals(city2, dof.get(85).getSource());
+        assertEquals(city3, dof.get(85).getDestination());
+        assertEquals(50, dof.get(85).getSeats());
+        assertEquals(50, dof.get(85).getEmptySeats());
     }
 
     @Test
     public void put1() {
         dof.put(flight1);
-        assertEquals(901, dof.nFlights());
+        assertEquals(1201, dof.nFlights());
     }
 
     @Test
     public void put2() {
         dof.put(flight1);
         dof.put(flight2);
-        assertEquals(902, dof.nFlights());
+        assertEquals(1202, dof.nFlights());
     }
 
     @Test
     public void delete1() {
         dof.delete(flight1.getId());
-        assertEquals(899, dof.nFlights());
+        assertEquals(1199, dof.nFlights());
     }
 
     @Test
     public void delete2() {
         dof.delete(flight1.getId());
         dof.delete(flight2.getId());
-        assertEquals(898, dof.nFlights());
+        assertEquals(1198, dof.nFlights());
     }
 }

@@ -29,13 +29,26 @@ public class IOFlight {
         return flights;
     }
 
-    public void write(Flight flight) throws IOException {
+    public void write(List<Flight> flights) throws IOException {
         FileWriter fw = new FileWriter(file, true);
         BufferedWriter bw = new BufferedWriter(fw);
-        StringBuilder sb = new StringBuilder();
-        sb.append(flight.getId() + " : " + flight.getSource().getName() + " : " + flight.getDestination().getName() + " : " + flight.getSeats() + " : " + flight.getEmptySeats() + " : " + flight.getDate());
-        bw.write(sb.toString());
-        bw.newLine();
+        StringBuilder sb;
+        for (Flight f : flights) {
+            sb = new StringBuilder();
+            sb.append(f.getId());
+            sb.append(" : ");
+            sb.append(f.getSource().getName());
+            sb.append(" : ");
+            sb.append(f.getDestination().getName());
+            sb.append(" : ");
+            sb.append(f.getSeats());
+            sb.append(" : ");
+            sb.append(f.getEmptySeats());
+            sb.append(" : ");
+            sb.append(f.getDate());
+            bw.write(sb.toString());
+            bw.newLine();
+        }
         bw.close();
     }
 
@@ -65,9 +78,7 @@ public class IOFlight {
     public void updateFile(List<Flight> flights) throws IOException {
         deleteFile(file);
         file.createNewFile();
-        for (Flight item : flights) {
-            write(item);
-        }
+        write(flights);
     }
 
     public void deleteFile(File file) {

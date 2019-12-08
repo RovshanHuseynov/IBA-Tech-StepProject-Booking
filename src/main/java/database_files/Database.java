@@ -1,6 +1,7 @@
 package database_files;
 
 import java.io.File;
+import java.io.IOException;
 
 public class Database {
     public boolean isExisted() {
@@ -10,7 +11,7 @@ public class Database {
         return a.exists() && b.exists() && c.exists();
     }
 
-    public void createInitialData() {
+    public void createInitialData() throws IOException {
         Cities cities = new Cities();
         Countries countries = new Countries();
         Flights flights = new Flights();
