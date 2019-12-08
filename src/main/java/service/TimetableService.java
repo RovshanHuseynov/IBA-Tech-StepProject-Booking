@@ -30,14 +30,18 @@ public class TimetableService {
 
     public void showLine(int id) {
         try {
-            Flight flight = daoFlight.get(id);
-            List<Flight> all = new ArrayList<>();
-            LocalDateTime currentTime = LocalDateTime.now();
-            if (currentTime.compareTo(flight.getDate()) <= 0) {
-                all.add(flight);
-                printFlights(all);
+            if (id > daoFlight.size()) {
+                console.printLn("No Flights Found");
             } else {
-                console.printLn("This flight is already outdated");
+                Flight flight = daoFlight.get(id);
+                List<Flight> all = new ArrayList<>();
+                LocalDateTime currentTime = LocalDateTime.now();
+                if (currentTime.compareTo(flight.getDate()) <= 0) {
+                    all.add(flight);
+                    printFlights(all);
+                } else {
+                    console.printLn("This flight is already outdated");
+                }
             }
         } catch (Exception e) {
             System.out.println("Input is not correct");
