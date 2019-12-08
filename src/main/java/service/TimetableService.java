@@ -24,15 +24,11 @@ public class TimetableService {
     }
 
     public void show(LocalDateTime fromDateTime, LocalDateTime toDateTime) {
-        try {
-            List<Flight> all = daoFlight.getAll().stream().filter(flight -> {
-                LocalDateTime checkDateTime = flight.getDate();
-                return (checkDateTime.compareTo(fromDateTime) >= 0) && (checkDateTime.compareTo(toDateTime) <= 0);
-            }).collect(Collectors.toList());
-            printFlights(all);
-        } catch (Exception e) {
-            console.printLn("Input is not correct");
-        }
+        List<Flight> all = daoFlight.getAll().stream().filter(flight -> {
+            LocalDateTime checkDateTime = flight.getDate();
+            return (checkDateTime.compareTo(fromDateTime) >= 0) && (checkDateTime.compareTo(toDateTime) <= 0);
+        }).collect(Collectors.toList());
+        printFlights(all);
     }
 
     public void showLine(int id) {
