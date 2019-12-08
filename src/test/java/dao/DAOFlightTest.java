@@ -64,26 +64,26 @@ public class DAOFlightTest {
     @Test
     public void put1() {
         dof.put(flight1);
-        assertEquals(1201, dof.nFlights());
+        assertEquals(1201, dof.size());
     }
 
     @Test
     public void put2() {
         dof.put(flight1);
         dof.put(flight2);
-        assertEquals(1202, dof.nFlights());
+        assertEquals(1202, dof.size());
     }
 
     @Test
     public void delete1() {
         dof.delete(flight1.getId());
-        assertEquals(1199, dof.nFlights());
+        assertEquals(1199, dof.size());
     }
 
     @Test
     public void delete2() {
         dof.delete(flight1.getId());
         dof.delete(flight2.getId());
-        assertEquals(1198, dof.nFlights());
+        assertEquals(1198, dof.size());
     }
 }

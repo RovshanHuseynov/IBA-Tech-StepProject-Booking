@@ -38,14 +38,13 @@ public class DAOFlight implements DAO<Flight> {
     }
 
     public void set(int flightID) throws IOException {
-        //System.out.println("bu? " + flights.get(flightID-1));
         Flight flight = flights.get(flightID-1);
         int i = flights.indexOf(flight);
         flights.set(i, flight);
         ioFlight.updateFile(flights);
     }
 
-    public int nFlights(){
+    public int size(){
         return flights.size();
     }
 }

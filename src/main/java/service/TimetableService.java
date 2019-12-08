@@ -4,7 +4,6 @@ import console.Console;
 import dao.DAOFlight;
 import entity.Flight;
 
-import java.awt.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -73,22 +72,28 @@ public class TimetableService {
                 String in = console.readLn();
                 in = checkInteger(in);
                 int flightId = Integer.parseInt(in);
-                Flight flight = daoFlight.get(flightId);
-                if (flight.getEmptySeats() >= Integer.parseInt(nTickets)
-                        && flight.getDate().getYear() == year
-                        && flight.getDate().getMonthValue() == month
-                        && flight.getDate().getDayOfMonth() == day
-                        && flight.getSource().getName().toLowerCase().equals(fromCityName.toLowerCase())
-                        && flight.getDestination().getName().toLowerCase().equals(toCityName.toLowerCase())) {
-                    int seats = flight.getEmptySeats() - Integer.parseInt(nTickets);
-                    flight.setEmptySeats(seats);
-                    daoFlight.set(flightId);
-                    return new ChosenFlight(Integer.parseInt(nTickets), flight);
-                } else {
+
+                if (flightId > daoFlight.size()) {
                     console.printLn("This flight ID was not in the list");
+                } else {
+                    Flight flight = daoFlight.get(flightId);
+                    if (flight.getEmptySeats() >= Integer.parseInt(nTickets)
+                            && flight.getDate().getYear() == year
+                            && flight.getDate().getMonthValue() == month
+                            && flight.getDate().getDayOfMonth() == day
+                            && flight.getSource().getName().toLowerCase().equals(fromCityName.toLowerCase())
+                            && flight.getDestination().getName().toLowerCase().equals(toCityName.toLowerCase())) {
+                        int seats = flight.getEmptySeats() - Integer.parseInt(nTickets);
+                        flight.setEmptySeats(seats);
+                        daoFlight.set(flightId);
+                        return new ChosenFlight(Integer.parseInt(nTickets), flight);
+                    } else {
+                        console.printLn("This flight ID was not in the list");
+                    }
                 }
             }
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             console.printLn("Wrong input");
         }
         return null;

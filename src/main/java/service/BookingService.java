@@ -46,6 +46,7 @@ public class BookingService {
     }
 
     public void delete(int booking_id) throws IOException, ParseException {
+        console.printLn("Please keep waiting..");
         daoBooking.delete(booking_id);
     }
 

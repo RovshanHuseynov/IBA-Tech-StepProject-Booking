@@ -53,8 +53,8 @@ public class Flights {
             for (Flight f : data) {
                 flights.add(new Flight(k++, f.getSource(), f.getDestination(), f.getSeats(), f.getEmptySeats(), f.getDate().plusHours((int) (Math.random() * 100))));
                 flights.add(new Flight(k++, f.getSource(), f.getDestination(), f.getSeats(), f.getEmptySeats(), f.getDate().plusDays((int) (Math.random() * 50))));
-                flights.add(new Flight(k++, f.getSource(), f.getDestination(), f.getSeats(), f.getEmptySeats(), f.getDate().plusMonths((int) (Math.random() * 10))));
-                flights.add(new Flight(k++, f.getSource(), f.getDestination(), f.getSeats(), f.getEmptySeats(), f.getDate().plusYears((int) (Math.random() * 5))));
+                flights.add(new Flight(k++, f.getSource(), f.getDestination(), f.getSeats(), f.getEmptySeats(), f.getDate().plusMonths((int) (Math.random() * 15))));
+                flights.add(new Flight(k++, f.getSource(), f.getDestination(), f.getSeats(), f.getEmptySeats(), f.getDate().plusYears((int) (Math.random() * 8))));
             }
         }
 

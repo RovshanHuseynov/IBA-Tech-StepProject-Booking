@@ -38,10 +38,10 @@ public class DAOBooking implements DAO<Booking> {
 
     public void put(Booking booking) throws IOException, ParseException {
         bookings.add(booking);
-        console.printLn("Your flight successfully booked!");
+        console.printLn("Your new booking is getting ready. Please keep waiting...");
         ioBooking.updateFile(bookings);
         this.bookings = ioBooking.read();
-
+        console.printLn("Your flight successfully booked!");
     }
 
     public void delete(int id) throws IOException, ParseException {

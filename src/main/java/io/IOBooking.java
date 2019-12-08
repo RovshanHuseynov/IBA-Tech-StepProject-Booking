@@ -30,17 +30,27 @@ public class IOBooking {
         return bookings;
     }
 
-    public void write(Booking booking) throws IOException {
+    public void write(List<Booking> bookings) throws IOException {
         FileWriter fw = new FileWriter(file, true);
         BufferedWriter bw = new BufferedWriter(fw);
-        StringBuilder sb = new StringBuilder();
-        String passengers = "";
-        for (Passenger p : booking.getPassengers()) {
-            passengers += p.getName() + " " + p.getSurname() + "/";
+        StringBuilder sb;
+        for (Booking b : bookings) {
+            sb = new StringBuilder();
+            StringBuilder passengers = new StringBuilder();
+            for (Passenger p : b.getPassengers()) {
+                passengers.append(p.getName());
+                passengers.append(" ");
+                passengers.append(p.getSurname());
+                passengers.append("/");
+            }
+            sb.append(b.getFlight().getId());
+            sb.append(" : ");
+            sb.append(passengers);
+            sb.append(" : ");
+            sb.append(b.getDate());
+            bw.write(sb.toString());
+            bw.newLine();
         }
-        sb.append(booking.getFlight().getId() + " : " + passengers + " : " + booking.getDate());
-        bw.write(sb.toString());
-        bw.newLine();
         bw.close();
     }
 
@@ -73,9 +83,7 @@ public class IOBooking {
     public void updateFile(List<Booking> bookings) throws IOException {
         deleteFile(file);
         file.createNewFile();
-        for (Booking item : bookings) {
-            write(item);
-        }
+        write(bookings);
     }
 
     public void deleteFile(File file) {
