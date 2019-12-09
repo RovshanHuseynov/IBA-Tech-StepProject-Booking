@@ -4,12 +4,18 @@ import entity.City;
 import io.IOCity;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
-public class Cities implements Iterable<City> {
+public class Cities {
+    private final IOCity ioCity;
     private final Countries countries = new Countries();
+
+    public Cities() {
+        this.ioCity = new IOCity();
+    }
+
     City city1 = new City(1, "Oslo", countries.country1);
     City city2 = new City(2, "Bern", countries.country2);
     City city3 = new City(3, "Canberra", countries.country3);
@@ -31,27 +37,13 @@ public class Cities implements Iterable<City> {
     City city19 = new City(19, "Tallin", countries.country19);
     City city20 = new City(20, "Nicosia", countries.country20);
 
-    private final List<City> data = Arrays.asList(city1, city2, city3, city4, city5,
+    List<City> data = Arrays.asList(city1, city2, city3, city4, city5,
             city6, city7, city8, city9, city10,
             city11, city12, city13, city14, city15,
             city16, city17, city18, city19, city20
     );
 
-    @Override
-    public Iterator<City> iterator() {
-        return data.iterator();
+    public void create() throws IOException {
+        ioCity.write(data);
     }
-
-    public void create() {
-        IOCity ioCity = new IOCity();
-        data.forEach(city -> {
-            try {
-                ioCity.write(city);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-
 }

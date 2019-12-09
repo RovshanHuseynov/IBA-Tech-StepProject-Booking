@@ -4,11 +4,17 @@ import entity.Country;
 import io.IOCountry;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
-public class Countries implements Iterable<Country> {
+public class Countries {
+    private final IOCountry ioCountry;
+
+    public Countries() {
+        this.ioCountry = new IOCountry();
+    }
+
     Country country1 = new Country(1, "Norway");
     Country country2 = new Country(2, "Switzerland");
     Country country3 = new Country(3, "Australia");
@@ -30,25 +36,12 @@ public class Countries implements Iterable<Country> {
     Country country19 = new Country(19, "Estonia");
     Country country20 = new Country(20, "Cyprus");
 
-    private final List<Country> data = Arrays.asList(country1, country2, country3, country4, country5,
+    List<Country> data = Arrays.asList(country1, country2, country3, country4, country5,
             country6, country7, country8, country9, country10,
             country11, country12, country13, country14, country15,
-            country16, country17, country18, country19, country20
-    );
+            country16, country17, country18, country19, country20);
 
-    @Override
-    public Iterator<Country> iterator() {
-        return data.iterator();
-    }
-
-    public void create() {
-        IOCountry ioCountry = new IOCountry();
-        data.forEach(country -> {
-            try {
-                ioCountry.write(country);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+    public void create() throws IOException {
+        ioCountry.write(data);
     }
 }

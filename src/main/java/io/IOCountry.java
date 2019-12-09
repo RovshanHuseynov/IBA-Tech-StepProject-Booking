@@ -27,13 +27,18 @@ public class IOCountry {
         return countries;
     }
 
-    public void write(Country country) throws IOException {
+    public void write(List<Country> countries) throws IOException {
         FileWriter fw = new FileWriter(file, true);
         BufferedWriter bw = new BufferedWriter(fw);
-        StringBuilder sb = new StringBuilder();
-        sb.append(country.getId() + " : " + country.getName());
-        bw.write(sb.toString());
-        bw.newLine();
+        StringBuilder sb;
+        for (Country c : countries) {
+            sb = new StringBuilder();
+            sb.append(c.getId());
+            sb.append(" : ");
+            sb.append(c.getName());
+            bw.write(sb.toString());
+            bw.newLine();
+        }
         bw.close();
     }
 }

@@ -25,13 +25,20 @@ public class IOCity {
         return cities;
     }
 
-    public void write(City city) throws IOException {
+    public void write(List<City> cities) throws IOException {
         FileWriter fw = new FileWriter(file, true);
         BufferedWriter bw = new BufferedWriter(fw);
-        StringBuilder sb = new StringBuilder();
-        sb.append(city.getId() + " : " + city.getName() + " : " + city.getCountry().getName());
-        bw.write(sb.toString());
-        bw.newLine();
+        StringBuilder sb;
+        for (City c : cities) {
+            sb = new StringBuilder();
+            sb.append(c.getId());
+            sb.append(" : ");
+            sb.append(c.getName());
+            sb.append(" : ");
+            sb.append(c.getCountry().getName());
+            bw.write(sb.toString());
+            bw.newLine();
+        }
         bw.close();
     }
 

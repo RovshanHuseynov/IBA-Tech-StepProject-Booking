@@ -12,8 +12,8 @@ public class Database {
     }
 
     public void createInitialData() throws IOException {
-        Cities cities = new Cities();
         Countries countries = new Countries();
+        Cities cities = new Cities();
         Flights flights = new Flights();
         if (!isExisted()) {
             cities.create();

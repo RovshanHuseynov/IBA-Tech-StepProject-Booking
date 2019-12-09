@@ -7,12 +7,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 public class Flights {
     private final IOFlight ioFlight;
-    private final Database db;
     private final Cities cities = new Cities();
     private final LocalDateTime cur = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
     Flight flight1 = new Flight(1, cities.city1, cities.city2, 50, 50, cur);
@@ -43,7 +41,6 @@ public class Flights {
 
     public Flights() {
         this.ioFlight = new IOFlight();
-        this.db = new Database();
     }
 
     public void create() throws IOException {
