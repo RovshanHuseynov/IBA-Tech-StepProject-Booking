@@ -41,7 +41,7 @@ public class DAOBooking implements DAO<Booking> {
         console.printLn("Your new booking is getting ready. Please keep waiting...");
         ioBooking.updateFile(bookings);
         this.bookings = ioBooking.read();
-        console.printLn("Your flight successfully booked!");
+        console.printLn("Your flight was successfully booked!");
     }
 
     public void delete(int id) throws IOException, ParseException {
@@ -55,8 +55,8 @@ public class DAOBooking implements DAO<Booking> {
                 bookings.remove(bookings.get(i));
                 ioBooking.updateFile(bookings);
                 this.bookings = ioBooking.read();
-                console.printLn("Your booking successfully cancelled!");
-                if (!isFound) isFound = true;
+                console.printLn("Your booking was successfully cancelled!");
+                isFound = true;
             }
 
             if (!isFound)

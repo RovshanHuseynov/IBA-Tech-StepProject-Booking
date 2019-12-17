@@ -46,7 +46,7 @@ public class BookingService {
     }
 
     public void delete(int booking_id) throws IOException, ParseException {
-        console.printLn("Please keep waiting..");
+        console.printLn("Your booking is being cancelled. Please keep waiting..");
         daoBooking.delete(booking_id);
     }
 
@@ -61,8 +61,6 @@ public class BookingService {
         }
         if (!f) {
             console.printLn("There is no booking at your name!");
-        } else {
-            console.printLn("\n");
         }
     }
 
