@@ -89,7 +89,7 @@ public class TimetableService {
                             && flight.getDestination().getName().toLowerCase().equals(toCityName.toLowerCase())) {
                         int seats = flight.getEmptySeats() - Integer.parseInt(nTickets);
                         flight.setEmptySeats(seats);
-                        daoFlight.set(flightId);
+                        daoFlight.update(flight);
                         return new ChosenFlight(Integer.parseInt(nTickets), flight);
                     } else {
                         console.printLn("This flight ID was not in the list");
