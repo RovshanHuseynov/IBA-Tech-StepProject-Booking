@@ -45,9 +45,8 @@ public class BookingService {
         daoBooking.put(booked);
     }
 
-    public void delete(int booking_id) throws IOException, ParseException {
-        console.printLn("Your booking is being cancelled. Please keep waiting..");
-        daoBooking.delete(booking_id);
+    public void delete(int bookingId) throws IOException, ParseException {
+        daoBooking.delete(bookingId);
     }
 
     public void show(String name, String surname) {

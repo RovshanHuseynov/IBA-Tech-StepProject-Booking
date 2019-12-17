@@ -48,19 +48,25 @@ public class DAOBooking implements DAO<Booking> {
         boolean isFound = false;
         for (int i = 0; i < bookings.size(); i++) {
             if (id == bookings.get(i).getFlight().getId()) {
-                int seats = bookings.get(i).getFlight().getEmptySeats() + bookings.get(i).getPassengers().size();
-                Flight flight = bookings.get(i).getFlight();
-                flight.setEmptySeats(seats);
-                daoFlight.set(flight.getId());
-                bookings.remove(bookings.get(i));
+                Booking curBooking = bookings.get(i);
+                if (!isFound) {
+                    console.printLn("Your booking is being cancelled. Please keep waiting..");
+                    isFound = true;
+                }
+                int seats = curBooking.getFlight().getEmptySeats() + curBooking.getPassengers().size();
+                Flight curflight = curBooking.getFlight();
+                curflight.setEmptySeats(seats);
+                daoFlight.set(curflight.getId());
+                bookings.remove(curBooking);
                 ioBooking.updateFile(bookings);
                 this.bookings = ioBooking.read();
-                console.printLn("Your booking was successfully cancelled!");
-                isFound = true;
             }
+        }
 
-            if (!isFound)
-                console.printLn("No booking at this id!");
+        if (!isFound) {
+            console.printLn("No booking found at this id!");
+        } else {
+            console.printLn("Your booking was successfully cancelled!");
         }
     }
 }
