@@ -2,20 +2,20 @@ package controller;
 
 import console.Console;
 import service.ChosenFlight;
-import service.TimetableService;
+import service.FlightService;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 
-public class TimetableController {
-    private final TimetableService timetableService;
+public class FlightController {
+    private final FlightService flightService;
     private final Console console;
     private final BookingController bookingController;
 
-    public TimetableController(Console console) throws IOException, ParseException {
+    public FlightController(Console console) throws IOException, ParseException {
         this.console = console;
-        this.timetableService = new TimetableService(console);
+        this.flightService = new FlightService(console);
         this.bookingController = new BookingController(console);
     }
 
@@ -32,7 +32,7 @@ public class TimetableController {
         console.printLn("Please enter number of tickets to buy:");
         String nTickets = console.readLn();
         nTickets = checkInteger(nTickets);
-        ChosenFlight chosen = timetableService.search(fromCityName, toCityName, date, nTickets);
+        ChosenFlight chosen = flightService.search(fromCityName, toCityName, date, nTickets);
         if (chosen != null) {
             bookingController.add(chosen);
         }
@@ -46,18 +46,18 @@ public class TimetableController {
         int month = Integer.parseInt(endDate.split("\\.")[1]);
         int day = Integer.parseInt(endDate.split("\\.")[2]);
         LocalDateTime toDateTime = LocalDateTime.of(year, month, day, 23, 59, 59);
-        timetableService.show(fromDateTime, toDateTime);
+        flightService.show(fromDateTime, toDateTime);
     }
 
     public void showLine() {
         console.printLn("Please enter flight id");
         String line = checkInteger(console.readLn());
         int id = Integer.parseInt(line);
-        timetableService.showLine(id);
+        flightService.showLine(id);
     }
 
     public void load() {
-        timetableService.load();
+        flightService.load();
     }
 
     public String checkCityName(String cityName) {

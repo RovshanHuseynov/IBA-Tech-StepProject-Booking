@@ -1,5 +1,3 @@
-package io;
-
 public class Parser {
     public Command parse(String origin) {
         switch (origin.toLowerCase()) {

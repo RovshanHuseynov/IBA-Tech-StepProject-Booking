@@ -1,5 +1,3 @@
-package io;
-
 public enum Command {
     TIMETABLE_SHOW,
     TIMETABLE_LINE_SHOW,

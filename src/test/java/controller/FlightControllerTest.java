@@ -2,7 +2,7 @@ package controller;
 
 import org.junit.Test;
 
-public class TimetableControllerTest {
+public class FlightControllerTest {
 
     @Test
     public void search() {

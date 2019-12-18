@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TimetableService {
+public class FlightService {
     private final Console console;
     private final DAOFlight daoFlight;
 
-    public TimetableService(Console console) throws IOException, ParseException {
+    public FlightService(Console console) throws IOException, ParseException {
         this.console = console;
         this.daoFlight = new DAOFlight();
     }

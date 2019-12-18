@@ -1,9 +1,8 @@
 import console.Console;
 import controller.BookingController;
-import controller.TimetableController;
+import controller.FlightController;
 import database_files.Database;
-import io.Command;
-import io.Parser;
+
 import java.io.IOException;
 import java.text.ParseException;
 
@@ -12,21 +11,21 @@ public class Core {
     private final Database database;
     private final Menu menu;
     private final Parser parser;
+    private final FlightController flightController;
     private final BookingController bookingController;
-    private final TimetableController timetableController;
 
     public Core(Console console, Database database) throws IOException, ParseException {
         this.console = console;
         this.database = database;
         this.menu = new Menu();
         this.parser = new Parser();
+        this.flightController = new FlightController(console);
         this.bookingController = new BookingController(console);
-        this.timetableController = new TimetableController(console);
     }
 
     public void run() throws IOException, ParseException {
         bookingController.load();
-        timetableController.load();
+        flightController.load();
         if (!database.isExisted()) {
             database.createInitialData();
         }
@@ -37,13 +36,13 @@ public class Core {
             Command user_input = parser.parse(line);
             switch (user_input) {
                 case TIMETABLE_SHOW:
-                    timetableController.show();
+                    flightController.show();
                     break;
                 case TIMETABLE_LINE_SHOW:
-                    timetableController.showLine();
+                    flightController.showLine();
                     break;
                 case FLIGHT_SEARCH:
-                    timetableController.search();
+                    flightController.search();
                     break;
                 case BOOKING_REMOVE:
                     bookingController.remove();

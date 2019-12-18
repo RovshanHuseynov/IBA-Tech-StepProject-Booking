@@ -2,7 +2,7 @@ package service;
 
 import org.junit.Test;
 
-public class TimetableServiceTest {
+public class FlightServiceTest {
 
     @Test
     public void show() {
