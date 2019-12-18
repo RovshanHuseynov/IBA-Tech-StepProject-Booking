@@ -19,7 +19,6 @@ public class IOFlight {
             file.createNewFile();
         }
         BufferedReader br = new BufferedReader(new FileReader(path));
-        IOCity ioCity = new IOCity();
         String line;
         while ((line = br.readLine()) != null) {
             flights.add(defineFlight(line));
